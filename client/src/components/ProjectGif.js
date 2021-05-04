@@ -16,37 +16,39 @@ const ProjectGif = (props) => {
   const [hover, setHover] = useState(false);
   return (
     <div>
-      <div
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
-        onClick={() => {
-          props.onClick();
-          ReactGa.event({
-            category: 'Project',
-            action: `Clicked on ${props.title} modal.`,
-          });
-        }}
-        style={{ cursor: 'pointer' }}
-      >
-        <LoadingOverlay
-          active={hover}
-          text="Click To View Gif In Modal"
-          fadeSpeed={200}
+      {props.gifLink && (
+        <div
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+          onClick={() => {
+            props.onClick();
+            ReactGa.event({
+              category: 'Project',
+              action: `Clicked on ${props.title} modal.`,
+            });
+          }}
+          style={{ cursor: 'pointer' }}
         >
-          <LazyLoadImage
-            className="img-responsive"
-            style={{
-              cursor: 'pointer',
-              display: 'block',
-              width: '100%',
-              height: 'auto',
-              marginBottom: '2em',
-            }}
-            src={props.gifLink}
-            alt="No demo gif"
-          />
-        </LoadingOverlay>
-      </div>
+          <LoadingOverlay
+            active={hover}
+            text="Click To View Gif In Modal"
+            fadeSpeed={200}
+          >
+            <LazyLoadImage
+              className="img-responsive"
+              style={{
+                cursor: 'pointer',
+                display: 'block',
+                width: '100%',
+                height: 'auto',
+                marginBottom: '2em',
+              }}
+              src={props.gifLink}
+              alt="No demo gif"
+            />
+          </LoadingOverlay>
+        </div>
+      )}
 
       {props.videoLink && (
         <LazyLoadComponent>
