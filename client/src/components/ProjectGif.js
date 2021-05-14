@@ -14,6 +14,11 @@ import LoadingOverlay from 'react-loading-overlay';
 
 const ProjectGif = (props) => {
   const [hover, setHover] = useState(false);
+  let gifPath;
+  if (props.gifLink) {
+    const split = props.gifLink.split('/');
+    gifPath = process.env.PUBLIC_URL + `/gifs/${split[split.length - 1]}`;
+  }
   return (
     <div>
       {props.gifLink && (
@@ -43,7 +48,7 @@ const ProjectGif = (props) => {
                 height: 'auto',
                 marginBottom: '2em',
               }}
-              src={props.gifLink}
+              src={gifPath}
               alt="No demo gif"
             />
           </LoadingOverlay>
@@ -150,7 +155,7 @@ const ProjectGif = (props) => {
           <div className="row justify-content-center">
             <LazyLoadImage
               className="img-responsive col"
-              src={props.gifLink}
+              src={gifPath}
               alt="No demo gif"
             />
           </div>
