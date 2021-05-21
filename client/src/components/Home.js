@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link as ScrollLink } from 'react-scroll';
 
-// import WAVES from 'vanta/dist/vanta.waves.min';
+import WAVES from 'vanta/dist/vanta.waves.min';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -34,20 +34,20 @@ export default class Home extends Component {
     ReactGa.pageview(window.location.pathname + window.location.search);
     this.updateWindowDimensions();
     window.addEventListener('resize', this.updateWindowDimensions);
-    // WAVES({
-    //   el: this.home.current,
-    //   mouseControls: true,
-    //   touchControls: true,
-    //   minHeight: 200.0,
-    //   minWidth: 200.0,
-    //   scale: 0.8,
-    //   scaleMobile: 0.8,
-    //   color: 0x886f,
-    //   shininess: 30.0,
-    //   waveHeight: 13.5,
-    //   waveSpeed: 1.1,
-    //   zoom: 0.8,
-    // });
+    WAVES({
+      el: this.home.current,
+      mouseControls: true,
+      touchControls: true,
+      minHeight: 200.0,
+      minWidth: 200.0,
+      scale: 0.8,
+      scaleMobile: 0.8,
+      color: 0x886f,
+      shininess: 30.0,
+      waveHeight: 13.5,
+      waveSpeed: 1.1,
+      zoom: 0.8,
+    });
   }
 
   componentWillUnmount() {
