@@ -18,7 +18,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         projects: action.projects.sort(
-          (a, b) => new Date(b.startDate) - new Date(a.startDate)
+          (a, b) => new Date(a.rank) - new Date(b.rank)
         ),
         showModals: showModals,
       };

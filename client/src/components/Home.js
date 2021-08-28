@@ -367,7 +367,7 @@ export default class Home extends Component {
                 <Carousel.Item>
                   <img
                     className="d-block w-100 img-repsonsive"
-                    src="robotics/dprg.jpg"
+                    src="robotics/dprg.jpeg"
                     alt="Third slide: DPRG"
                   />
                   <Carousel.Caption>
@@ -382,6 +382,23 @@ export default class Home extends Component {
                         present again on computer vision, as this is something
                         that they were very interested in, but we also wanted to
                         give our actual presentation as practice for Regionals.
+                      </p>
+                    </div>
+                  </Carousel.Caption>
+                </Carousel.Item>
+                <Carousel.Item>
+                  <img
+                    className="d-block w-100"
+                    src="robotics/texas_cup_2021.jpeg"
+                    alt="Fourth slide: Texas State Cup"
+                  />
+                  <Carousel.Caption>
+                    <div className="carousel" z>
+                      <h3>FTC Texas State Cup</h3>
+                      <p>
+                        Qualified for a would-be world championship (cancelled
+                        due to COVID-19) at the FTC Texas State Cup in San
+                        Antonio through 2nd place Think award.
                       </p>
                     </div>
                   </Carousel.Caption>
