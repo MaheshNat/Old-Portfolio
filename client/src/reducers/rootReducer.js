@@ -8,9 +8,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case 'LOAD_REPOSITORIES':
-      return { ...state, repositories: action.repositories };
-    case 'LOAD_PROJECTS':
+    case "LOAD_PROJECTS":
       let showModals = {};
       action.projects.forEach((project) => {
         showModals[project._id] = false;
@@ -22,23 +20,21 @@ export default (state = initialState, action) => {
         ),
         showModals: showModals,
       };
-    case 'SHOW_MODAL':
+    case "SHOW_MODAL":
       let newShowModals = { ...state.showModals };
       newShowModals[action.id] = true;
       return {
         ...state,
         showModals: newShowModals,
       };
-    case 'HIDE_MODAL':
+    case "HIDE_MODAL":
       let _newShowModals = { ...state.showModals };
       _newShowModals[action.id] = false;
       return {
         ...state,
         showModals: _newShowModals,
       };
-    case 'LOAD_EPISODES':
-      return { ...state, episodes: action.episodes };
-    case 'LOAD_RESUME':
+    case "LOAD_RESUME":
       return { ...state, resume: action.resume };
     default:
       return state;

@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { Navbar, Nav } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
+import React, { Component } from "react";
+import { Navbar, Nav } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 
 class Navigation extends Component {
   render() {
@@ -25,9 +25,6 @@ class Navigation extends Component {
             >
               Resume
             </Nav.Link>
-            <LinkContainer to="/podcast">
-              <Nav.Link>Podcast</Nav.Link>
-            </LinkContainer>
           </Nav>
           <Nav className="ml-auto">
             <LinkContainer to="/contact">
