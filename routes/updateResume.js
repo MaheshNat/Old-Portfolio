@@ -8,25 +8,26 @@ router.put('/', async (req, res) => {
     req.headers['secret'] &&
     req.headers['secret'] === process.env.UPDATE_RESUME_SECRET
   ) {
-    const sha = (
-      await axios.get(
-        'https://api.github.com/repos/chubbyFreak/dummy-resume/contents/resume.pdf',
+    const getSha = async (filename) => {
+      const res = await axios.get(
+        `https://api.github.com/repos/chubbyFreak/dummy-resume/contents/${filename}`,
         {
           headers: {
             Authorization: `Bearer ${process.env.GITHUB_API_ACCESS_TOKEN}`,
             Accept: 'application/vnd.github+json',
           },
         }
-      )
-    ).data.sha;
+      );
+      return res.data.sha;
+    };
 
-    axios
-      .put(
+    try {
+      await axios.put(
         'https://api.github.com/repos/chubbyFreak/dummy-resume/contents/resume.pdf',
         {
-          message: 'automated update',
-          content: req.body.content,
-          sha: sha,
+          message: 'automated update (resume.pdf)',
+          content: req.body.blobContent,
+          sha: await getSha('resume.pdf'),
         },
         {
           headers: {
@@ -34,27 +35,39 @@ router.put('/', async (req, res) => {
             Accept: 'application/vnd.github+json',
           },
         }
-      )
-      .then(async () => {
-        const response = await axios({
-          method: 'get',
-          url: process.env.RESUME_DOWNLOAD_LINK,
-          responseType: 'stream',
-        });
-        response.data.pipe(
-          fs.createWriteStream('./assets/mahesh-natamai-resume.pdf')
-        );
-        console.log('Updated resume pdf via api.');
-        return res.status(200).json({
-          message: 'SUCCESS',
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        return res.status(500).json({
-          message: 'something went wrong...',
-        });
+      );
+      await axios.put(
+        'https://api.github.com/repos/chubbyFreak/dummy-resume/contents/resume.tex',
+        {
+          message: 'automated update (resume.tex)',
+          content: req.body.latexContent,
+          sha: await getSha('resume.tex'),
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.GITHUB_API_ACCESS_TOKEN}`,
+            Accept: 'application/vnd.github+json',
+          },
+        }
+      );
+      const response = await axios({
+        method: 'get',
+        url: process.env.RESUME_DOWNLOAD_LINK,
+        responseType: 'stream',
       });
+      response.data.pipe(
+        fs.createWriteStream('./assets/mahesh-natamai-resume.pdf')
+      );
+      console.log('Updated resume pdf via api.');
+      return res.status(200).json({
+        message: 'SUCCESS',
+      });
+    } catch (e) {
+      console.log(e);
+      return res.status(500).json({
+        message: 'something went wrong...',
+      });
+    }
   } else {
     return res.status(400).json({
       message: 'INCORRECT SECRET',
