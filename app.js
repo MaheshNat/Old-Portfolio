@@ -6,7 +6,6 @@ const path = require('path');
 const fs = require('fs');
 const axios = require('axios');
 const CronJob = require('cron').CronJob;
-const YouTube = require('simple-youtube-api');
 const Episode = require('./models/Episode');
 
 const PORT = process.env.PORT || 8080;
