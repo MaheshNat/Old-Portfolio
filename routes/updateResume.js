@@ -7,7 +7,7 @@ router.put('/', async (req, res) => {
   if (
     req.headers['secret'] &&
     req.headers['secret'] === process.env.UPDATE_RESUME_SECRET &&
-    req.body.commitMessage &&
+    req.body.commitMessage !== undefined &&
     req.body.blobContent &&
     req.body.latexContent
   ) {
@@ -53,15 +53,16 @@ router.put('/', async (req, res) => {
           },
         }
       );
-      const response = await axios({
+      axios({
         method: 'get',
         url: process.env.RESUME_DOWNLOAD_LINK,
         responseType: 'stream',
+      }).then((response) => {
+        response.data.pipe(
+          fs.createWriteStream('./assets/mahesh-natamai-resume.pdf')
+        );
+        console.log('Updated resume pdf via api.');
       });
-      response.data.pipe(
-        fs.createWriteStream('./assets/mahesh-natamai-resume.pdf')
-      );
-      console.log('Updated resume pdf via api.');
       return res.status(200).json({
         message: 'SUCCESS',
       });
