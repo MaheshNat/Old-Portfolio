@@ -6,7 +6,10 @@ const fs = require('fs');
 router.put('/', async (req, res) => {
   if (
     req.headers['secret'] &&
-    req.headers['secret'] === process.env.UPDATE_RESUME_SECRET
+    req.headers['secret'] === process.env.UPDATE_RESUME_SECRET &&
+    req.body.commitMessage &&
+    req.body.blobContent &&
+    req.body.latexContent
   ) {
     const getSha = async (filename) => {
       const res = await axios.get(
@@ -25,7 +28,7 @@ router.put('/', async (req, res) => {
       await axios.put(
         'https://api.github.com/repos/chubbyFreak/dummy-resume/contents/resume.pdf',
         {
-          message: 'automated update (resume.pdf)',
+          message: `automated update (resume.pdf): ${req.body.commitMessage}`,
           content: req.body.blobContent,
           sha: await getSha('resume.pdf'),
         },
@@ -39,7 +42,7 @@ router.put('/', async (req, res) => {
       await axios.put(
         'https://api.github.com/repos/chubbyFreak/dummy-resume/contents/resume.tex',
         {
-          message: 'automated update (resume.tex)',
+          message: `automated update (resume.tex): ${req.body.commitMessage}`,
           content: req.body.latexContent,
           sha: await getSha('resume.tex'),
         },
