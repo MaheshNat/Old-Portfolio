@@ -8,7 +8,7 @@ const axios = require('axios');
 const CronJob = require('cron').CronJob;
 const Episode = require('./models/Episode');
 
-const PORT = "3000";
+const PORT = '3000';
 
 const app = express();
 const contactRouter = require('./routes/contact');
@@ -49,9 +49,8 @@ app.use('/resume-file', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'assets', 'mahesh-natamai-resume.pdf'));
 });
 
-
 app.use('/', (req, res) => {
-	res.json({status: 'running'});
+  res.json({ status: 'running' });
 });
 
 //Connect To Database
